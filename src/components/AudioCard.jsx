@@ -3,10 +3,14 @@ import { BsTrashFill } from 'react-icons/bs';
 
 export default class AudioCard extends Component {
   render() {
-    const { children, id, removeAudio } = this.props;
+    const { children, id, removeAudio, setSelected } = this.props;
     return (
       <li className="AudioCard">
-        <button type="button" className="AudioCard__select-audio-btn">
+        <button
+          type="button"
+          onClick={ () => setSelected(children) }
+          className="AudioCard__select-audio-btn"
+        >
           { children }
         </button>
         <button

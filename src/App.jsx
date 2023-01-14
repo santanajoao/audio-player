@@ -32,8 +32,10 @@ export default class App extends Component {
     });
   };
 
-  setSelectedAudio = () => {
-
+  setSelectedAudio = (fileName) => {
+    const { audioList } = this.state;
+    const selected = audioList.find(({ name }) => name === fileName);
+    this.setState({ selectedAudio: selected });
   };
 
   render() {

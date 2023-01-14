@@ -19,7 +19,11 @@ export default class FileManager extends Component {
               Você ainda não adicionou suas músicas!
             </p>
           ) : (
-            <AudioList audioList={audioList} removeAudio={removeAudio} />
+            <AudioList
+              setSelected={setSelected}
+              removeAudio={removeAudio}
+              audioList={audioList}
+            />
           ) }
         </div>
       </div>
