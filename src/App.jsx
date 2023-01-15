@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import FileManager from './components/FileManager';
 import Modal from './components/Modal';
 import getAudioFileInfos from './utils/audioMetadata';
-import copyArrayOfFiles from './utils/files';
+import copyArrayOfObjects from './utils/files';
 
 export default class App extends Component {
   state = {
@@ -36,7 +36,7 @@ export default class App extends Component {
 
   removeAudio = (fileName, index) => {
     this.setState(({ audioList }) => {
-      const audiosCopy = copyArrayOfFiles(audioList);
+      const audiosCopy = copyArrayOfObjects(audioList);
       const newAudios = audiosCopy.filter(({ name }) => name !== fileName);
       return { audioList: newAudios };
     }, () => this.handleSelectedRemoved(fileName, index));
