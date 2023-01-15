@@ -40,7 +40,7 @@ export default class Modal extends Component {
   render() {
     const { handleModal } = this.props;
     const { audioFile, valdidationErrors } = this.state;
-  
+
     return (
       <div className="Modal">
         <div className="Modal__top-container">

@@ -23,9 +23,9 @@ export default class App extends Component {
     const newAudio = await getAudioFileInfos(audio);
     this.setState(({ audioList }) => ({
       audioList: [...audioList, newAudio],
-    }));
+    }), () => this.setSelectedAudio(newAudio.name));
   };
-
+  
   removeAudio = (index) => {
     this.setState(({ audioList }) => {
       const newAudios = copyArrayOfFiles(audioList);
