@@ -11,8 +11,6 @@ export default class App extends Component {
     selectedAudio: null,
   };
 
-  // fazer lógicas de seleção quando o elemento selecionado for removido 
-
   handleModal = () => {
     this.setState(({ displayModal }) => ({
       displayModal: !displayModal,
