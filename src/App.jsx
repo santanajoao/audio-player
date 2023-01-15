@@ -22,7 +22,8 @@ export default class App extends Component {
     const newAudio = await getAudioFileInfos(audio);
     this.setState(({ audioList }) => ({
       audioList: [...audioList, newAudio],
-    }), () => this.setSelectedAudio(newAudio.name));
+      selectedAudio: newAudio,
+    }));
   };
 
   handleSelectedRemoved = (fileName, index) => {
@@ -37,16 +38,15 @@ export default class App extends Component {
 
   removeAudio = (fileName, index) => {
     this.setState(({ audioList }) => {
+      URL.revokeObjectURL(audioList[index].url);
       const audiosCopy = copyArrayOfObjects(audioList);
       const newAudios = audiosCopy.filter(({ name }) => name !== fileName);
       return { audioList: newAudios };
     }, () => this.handleSelectedRemoved(fileName, index));
   };
 
-  setSelectedAudio = (fileName) => {
-    const { audioList } = this.state;
-    const selected = audioList.find(({ name }) => name === fileName);
-    this.setState({ selectedAudio: selected });
+  setSelected = (audio) => {
+    this.setState({ selectedAudio: audio });
   };
 
   render() {
@@ -64,10 +64,11 @@ export default class App extends Component {
 
         <AudioController
           selectedAudio={selectedAudio}
+          setSelected={this.setSelected}
         />
 
         <FileManager
-          setSelected={this.setSelectedAudio}
+          setSelected={this.setSelected}
           selectedAudio={selectedAudio}
           removeAudio={this.removeAudio}
           handleModal={this.handleModal}
