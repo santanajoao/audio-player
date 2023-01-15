@@ -3,7 +3,7 @@ import AudioCard from './AudioCard';
 
 export default class AudioList extends Component {
   render() {
-    const { audioList, removeAudio, setSelected } = this.props;
+    const { audioList, removeAudio, setSelected, selectedAudio } = this.props;
     return (
       <ul className="AudioList">
         { audioList.map(({ name }, index) => (
@@ -11,6 +11,7 @@ export default class AudioList extends Component {
             key={ index }
             setSelected={setSelected}
             removeAudio={removeAudio}
+            selectedAudio={selectedAudio}
             id={ index }
           >
             { name }

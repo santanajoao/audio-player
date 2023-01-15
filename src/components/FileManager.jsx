@@ -4,7 +4,9 @@ import AudioList from './AudioList';
 
 export default class FileManager extends Component {
   render() {
-    const { audioList, handleModal, removeAudio, setSelected } = this.props;
+    const {
+      audioList, handleModal, removeAudio, setSelected, selectedAudio,
+    } = this.props;
 
     return (
       <div className="FileManager">
@@ -20,6 +22,7 @@ export default class FileManager extends Component {
             </p>
           ) : (
             <AudioList
+              selectedAudio={selectedAudio}
               setSelected={setSelected}
               removeAudio={removeAudio}
               audioList={audioList}

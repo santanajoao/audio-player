@@ -31,7 +31,7 @@ export default class Modal extends Component {
   };
 
   addNewAudio = () => {
-    const { updateAudios, handleModal } = this.props; 
+    const { handleModal, updateAudios } = this.props; 
     const { audioFile } = this.state;
     updateAudios(audioFile);
     handleModal();
@@ -39,7 +39,7 @@ export default class Modal extends Component {
 
   render() {
     const { handleModal } = this.props;
-    const { valdidationErrors, audioFile } = this.state;
+    const { audioFile, valdidationErrors } = this.state;
   
     return (
       <div className="Modal">

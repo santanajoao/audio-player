@@ -25,7 +25,8 @@ const handlePicture = (picture) => {
 const getAudioFileInfos = async (file) => {
   const { title, artist, picture } = await getAudioMetadata(file);
   const cover = handlePicture(picture);
-  return { title, artist, cover, name: file.name };
+  const url = URL.createObjectURL(file);
+  return { title, artist, cover, name: file.name, url };
 }
 
 export default getAudioFileInfos;

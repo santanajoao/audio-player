@@ -11,6 +11,8 @@ export default class App extends Component {
     selectedAudio: null,
   };
 
+  // fazer lógicas de seleção quando o elemento selecionado for removido 
+
   handleModal = () => {
     this.setState(({ displayModal }) => ({
       displayModal: !displayModal,
@@ -39,23 +41,24 @@ export default class App extends Component {
   };
 
   render() {
-    const { audioList, displayModal } = this.state;
+    const { audioList, displayModal, selectedAudio } = this.state;
 
     return (
       <div className="App">
         { displayModal && (
           <Modal
-            audioList={audioList}
             updateAudios={this.updateAudios}
             handleModal={this.handleModal}
+            audioList={audioList}
           />
         ) }
   
         <FileManager
-          audioList={audioList}
-          handleModal={this.handleModal}
-          removeAudio={this.removeAudio}
           setSelected={this.setSelectedAudio}
+          selectedAudio={selectedAudio}
+          removeAudio={this.removeAudio}
+          handleModal={this.handleModal}
+          audioList={audioList}
         />
       </div>
     );
