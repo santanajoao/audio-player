@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AudioController from './components/AudioController';
 import FileManager from './components/FileManager';
 import Modal from './components/Modal';
 import getAudioFileInfos from './utils/audioMetadata';
@@ -8,7 +9,7 @@ export default class App extends Component {
   state = {
     audioList: [],
     displayModal: false,
-    selectedAudio: null,
+    selectedAudio: {},
   };
 
   handleModal = () => {
@@ -27,7 +28,7 @@ export default class App extends Component {
   handleSelectedRemoved = (fileName, index) => {
     const { selectedAudio, audioList } = this.state;
     if (audioList.length === 0) {
-      this.setState({ selectedAudio: null });
+      this.setState({ selectedAudio: {} });
     } else if (selectedAudio.name === fileName) {
       const newAudio = audioList[index - 1] || audioList[index];
       this.setState({ selectedAudio: newAudio });
@@ -60,7 +61,11 @@ export default class App extends Component {
             audioList={audioList}
           />
         ) }
-  
+
+        <AudioController
+          selectedAudio={selectedAudio}
+        />
+
         <FileManager
           setSelected={this.setSelectedAudio}
           selectedAudio={selectedAudio}
