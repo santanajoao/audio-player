@@ -25,13 +25,17 @@ export default class App extends Component {
       audioList: [...audioList, newAudio],
     }), () => this.setSelectedAudio(newAudio.name));
   };
-  
-  removeAudio = (index) => {
+
+  handleSelectedRemoved = (index) => {
+
+  };
+
+  removeAudio = (fileName) => {
     this.setState(({ audioList }) => {
-      const newAudios = copyArrayOfFiles(audioList);
-      newAudios.splice(index, 1);
+      const audiosCopy = copyArrayOfFiles(audioList);
+      const newAudios = audiosCopy.filter(({ name }) => name !== fileName);
       return { audioList: newAudios };
-    });
+    }, () => handleSelectedRemoved(fileName));
   };
 
   setSelectedAudio = (fileName) => {
