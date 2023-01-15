@@ -20,7 +20,7 @@ export default class AudioCard extends Component {
         </button>
         <button
           type="button"
-          onClick={ () => removeAudio(children) }
+          onClick={ () => removeAudio(children, id) }
           className="AudioCard__delete-btn"
         >
           <BsTrashFill className="AudioCard__delete-icon" />

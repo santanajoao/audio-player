@@ -26,16 +26,22 @@ export default class App extends Component {
     }), () => this.setSelectedAudio(newAudio.name));
   };
 
-  handleSelectedRemoved = (index) => {
-
+  handleSelectedRemoved = (fileName, index) => {
+    const { selectedAudio, audioList } = this.state;
+    if (audioList.length === 0) {
+      this.setState({ selectedAudio: null });
+    } else if (selectedAudio.name === fileName) {
+      const newAudio = audioList[index - 1] || audioList[index];
+      this.setState({ selectedAudio: newAudio });
+    }
   };
 
-  removeAudio = (fileName) => {
+  removeAudio = (fileName, index) => {
     this.setState(({ audioList }) => {
       const audiosCopy = copyArrayOfFiles(audioList);
       const newAudios = audiosCopy.filter(({ name }) => name !== fileName);
       return { audioList: newAudios };
-    }, () => handleSelectedRemoved(fileName));
+    }, () => this.handleSelectedRemoved(fileName, index));
   };
 
   setSelectedAudio = (fileName) => {
