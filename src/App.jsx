@@ -4,6 +4,7 @@ import FileManager from './components/FileManager';
 import Modal from './components/Modal';
 import getAudioFileInfos from './utils/audioMetadata';
 import copyArrayOfObjects from './utils/files';
+import './App.css';
 
 export default class App extends Component {
   state = {

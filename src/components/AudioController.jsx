@@ -151,20 +151,22 @@ export default class AudioController extends Component {
             <BsSkipForwardFill className="AudioController__next-icon" /> 
           </button>
         </div>
-        <div className="AudioController__bar-container">
-          <div className="AudioController__total-bar" />
-          <div
-            style={ calculateWidth(duration, currentTime) } 
-            className="AudioController__progress-bar"
-          />
-        </div>
-        <div className="AudoController__times">
-          <span className="AudioController__currentTime">
-            { toMinutesAndSeconds(currentTime) }
-          </span>
-          <span className="AudioController__duration">
-            { toMinutesAndSeconds(duration) }
-          </span>
+        <div className="AudioController__time-infos">
+          <div className="AudioController__bar-container">
+            <div className="AudioController__total-bar" />
+            <div
+              style={ calculateWidth(duration, currentTime) } 
+              className="AudioController__progress-bar"
+            />
+          </div>
+          <div className="AudioController__times">
+            <span className="AudioController__currentTime">
+              { toMinutesAndSeconds(currentTime) }
+            </span>
+            <span className="AudioController__duration">
+              { toMinutesAndSeconds(duration) }
+            </span>
+          </div>
         </div>
       </div>
     );
