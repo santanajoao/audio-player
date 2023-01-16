@@ -16,20 +16,42 @@ export default class AudioController extends Component {
   }
 
   handleSelectedChange = (prevProps) => {
-    const { audioElement } = this.state;
+    const { audioElement, isPlaying } = this.state;
+
+    if (!audioElement) return null;
 
     const { selectedAudio: prevSelected } = prevProps;
     const { selectedAudio: currentSelected } = this.props;
 
     if (prevSelected.name === currentSelected.name) return null;
 
-    audioElement?.pause();
-
     if (Object.keys(currentSelected).length === 0) {
-      this.setState({
-        audioElement: null,
-      });
+      audioElement.pause();
+      this.setState({ audioElement: null, isPlaying: false });
+      return;
     }
+
+    if (!isPlaying) return;
+
+    audioElement.pause();
+    this.setState({ isPlaying: false }, () => {
+      audioElement.play();
+      this.setState({ isPlaying: true });
+    });
+  };
+
+  changeSong = (difference) => {
+    const { audioList, setSelected, selectedAudio } = this.props;
+    
+    if (audioList.length <= 1) return null;
+
+    const currentIndex = audioList.findIndex(
+      ({ name }) => name === selectedAudio.name
+    );
+    let newIndex = currentIndex + difference;
+    newIndex = (newIndex < 0) ? audioList.length - 1 : newIndex;
+    newIndex = (newIndex >= audioList.length) ? 0 : newIndex;
+    setSelected(audioList[newIndex]);
   };
 
   setAudioElement = () => {
@@ -72,7 +94,10 @@ export default class AudioController extends Component {
           </div>
         </div>
         <div className="AudioController__controls">
-          <button className="AudioController__prev-btn">
+          <button
+            onClick={ () => this.changeSong(-1) }
+            className="AudioController__prev-btn"
+          >
             <BsSkipBackwardFill className="AudioController__prev-icon" />
           </button>
           <button
@@ -81,7 +106,10 @@ export default class AudioController extends Component {
           >
             <BsPlayFill className="AudioController__play-pause-icon" />
           </button>
-          <button className="AudioController__next-btn">
+          <button
+            onClick={ () => this.changeSong(1) }
+            className="AudioController__next-btn"
+          >
             <BsSkipForwardFill className="AudioController__next-icon" /> 
           </button>
         </div>

@@ -65,6 +65,7 @@ export default class App extends Component {
         <AudioController
           selectedAudio={selectedAudio}
           setSelected={this.setSelected}
+          audioList={audioList}
         />
 
         <FileManager
