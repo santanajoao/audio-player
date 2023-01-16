@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import defaultCover from '../assets/default-song-cover.jpg';
+import { toMinutesAndSeconds, calculateWidth } from '../utils/time';
 import {
   BsPlayFill, BsSkipBackwardFill, BsSkipForwardFill
 } from 'react-icons/bs';
@@ -9,10 +10,22 @@ export default class AudioController extends Component {
   state = {
     isPlaying: false,
     audioElement: null,
+    duration: 0,
+    currentTime: 0,
+    intervalID: null,
   };
 
   componentDidUpdate(prevProps) {
     this.handleSelectedChange(prevProps);
+  }
+
+  handleSongEnd = () => {
+    const { currentIndex, duration } = this.state;
+  
+    if (currentIndex === duration) {
+      this.setState({ isPlaying: false, currentTime: 0, intervalID: null });
+      this.changeSong(1);
+    }
   }
 
   handleSelectedChange = (prevProps) => {
@@ -25,6 +38,9 @@ export default class AudioController extends Component {
 
     if (prevSelected.name === currentSelected.name) return null;
 
+    this.stopInterval();
+    this.setState({ currentTime: 0, duration: 0, intervalID: null });
+
     if (Object.keys(currentSelected).length === 0) {
       audioElement.pause();
       this.setState({ audioElement: null, isPlaying: false });
@@ -35,6 +51,7 @@ export default class AudioController extends Component {
 
     audioElement.pause();
     this.setState({ isPlaying: false }, () => {
+      this.startInterval();
       audioElement.play();
       this.setState({ isPlaying: true });
     });
@@ -56,16 +73,36 @@ export default class AudioController extends Component {
 
   setAudioElement = () => {
     const audio  = document.querySelector('.AudioController__audio');
-    this.setState({ audioElement: audio });
+    this.setState({
+      audioElement: audio,
+      duration: audio.duration,
+      currentTime: audio.currentTime,
+    });
   };
+
+  startInterval = () => {
+    const id = setInterval(() => {
+      const { audioElement } = this.state;
+      this.setState({ currentTime: audioElement.currentTime });
+    }, 1000);
+    this.setState({ intervalID: id });
+  };
+
+  stopInterval = () => {
+    const { intervalID } = this.state;
+    clearInterval(intervalID);
+    this.setState({ intervalID: null });
+  }
 
   playPause = () => {
     const { audioElement, isPlaying } = this.state;
     if (!audioElement) return;
       
     if (isPlaying) {
-      audioElement.pause()
+      audioElement.pause();
+      this.stopInterval();
     } else {
+      this.startInterval();
       audioElement.play();
     }
 
@@ -75,6 +112,7 @@ export default class AudioController extends Component {
   render() {
     const { selectedAudio } = this.props;
     const { title, artist, cover, url } = selectedAudio;
+    const { duration, currentTime } = this.state;
     return (
       <div className="AudioController">
         <audio
@@ -112,6 +150,21 @@ export default class AudioController extends Component {
           >
             <BsSkipForwardFill className="AudioController__next-icon" /> 
           </button>
+        </div>
+        <div className="AudioController__bar-container">
+          <div className="AudioController__total-bar" />
+          <div
+            style={ calculateWidth(duration, currentTime) } 
+            className="AudioController__progress-bar"
+          />
+        </div>
+        <div className="AudoController__times">
+          <span className="AudioController__currentTime">
+            { toMinutesAndSeconds(currentTime) }
+          </span>
+          <span className="AudioController__duration">
+            { toMinutesAndSeconds(duration) }
+          </span>
         </div>
       </div>
     );
