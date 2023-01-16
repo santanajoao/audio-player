@@ -1,16 +1,14 @@
-const getErrorList = (audioFile, validTypes, audioList) => {
-  const errorList = [];
-
+const getError = (audioFile, validTypes, audioList) => {
   if (!validTypes.includes(audioFile.type)) {
-    errorList.push('Tipe de arquivo inválido!');
+    return 'Tipo de arquivo inválido!';
   }
 
   const alreayIn = audioList.some(({ name }) => name === audioFile.name);
   if (alreayIn) {
-    errorList.push('Você já adicionou esse áudio!');
+    return 'Você já adicionou esse áudio!';
   }
 
-  return errorList;
+  return null;
 };
 
-export default getErrorList;
+export default getError;

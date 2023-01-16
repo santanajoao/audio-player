@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import defaultCover from '../assets/default-song-cover.jpg';
 import { toMinutesAndSeconds, calculateWidth } from '../utils/time';
 import {
-  BsPlayFill, BsSkipBackwardFill, BsSkipForwardFill
+  BsPlayFill, BsSkipBackwardFill, BsSkipForwardFill, BsPauseFill
 } from 'react-icons/bs';
 import '../styles/AudioController.css';
 
@@ -112,7 +112,7 @@ export default class AudioController extends Component {
   render() {
     const { selectedAudio } = this.props;
     const { title, artist, cover, url } = selectedAudio;
-    const { duration, currentTime } = this.state;
+    const { duration, currentTime, isPlaying } = this.state;
     return (
       <div className="AudioController">
         <audio
@@ -142,7 +142,12 @@ export default class AudioController extends Component {
             onClick={this.playPause}
             className="AudioController__play-pause-btn"
           >
-            <BsPlayFill className="AudioController__play-pause-icon" />
+            { isPlaying ? (
+              <BsPauseFill className="AudioController__play-pause-icon" />
+            ) : (
+              <BsPlayFill className="AudioController__play-pause-icon" />
+            ) }
+            
           </button>
           <button
             onClick={ () => this.changeSong(1) }

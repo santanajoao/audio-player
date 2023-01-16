@@ -1,8 +1,9 @@
 .App {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
   align-items: center;
+  background-color: rgba(50, 50, 50, 0.3);
+  display: flex;
+  height: 100vh;
   justify-content: center;
-  gap: 30px;
+  gap: 15px;
+  width: 100vw;
 }
