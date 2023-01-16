@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BsTrashFill } from 'react-icons/bs';
+import '../styles/AudioCard.css';
 
 export default class AudioCard extends Component {
   render() {

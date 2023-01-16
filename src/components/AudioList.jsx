@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AudioCard from './AudioCard';
+import '../styles/AudioList.css';
 
 export default class AudioList extends Component {
   render() {

@@ -6,6 +6,7 @@
   justify-content: center;
   position: absolute;
   width: 100vw;
+  z-index: 3;
 }
 
 .Modal__wrapper {
@@ -73,6 +74,11 @@
   background-color: rgba(42, 33, 65, 1);
   color: white;
   cursor: pointer;
+}
+
+.Modal__add-song-btn:disabled {
+  background-color: lightgray;
+  cursor: not-allowed;
 }
 
 .Modal__error {

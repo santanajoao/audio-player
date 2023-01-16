@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   padding: 7px;
+
 }
 
 .FileManager__btn-container {
@@ -38,6 +39,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: auto;
 }
 
 .FileManager__empty-list-msg {
