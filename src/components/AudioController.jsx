@@ -118,6 +118,7 @@ export default class AudioController extends Component {
         <audio
           src={url}
           onCanPlayThrough={this.setAudioElement}
+          onEnded={() => this.changeSong(1)}
           className="AudioController__audio"
         />
         <div className="AudioController__metadata">
