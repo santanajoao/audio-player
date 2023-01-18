@@ -6,8 +6,8 @@ const getAudioMetadata = (file) => (
       onSuccess: function({ tags }) {
         resolve(tags);
       },
-      onError: function(error) {
-        reject(new Error(error));
+      onError: function() {
+        reject(new Error('unable to get audio metadata'));
       }
     })
   ))

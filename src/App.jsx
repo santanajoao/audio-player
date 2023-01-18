@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import AudioController from './components/AudioController';
 import FileManager from './components/FileManager';
 import Modal from './components/Modal';
 import getAudioFileInfos from './utils/audioMetadata';
 import copyArrayOfObjects from './utils/files';
+import './App.css';
 
 export default class App extends Component {
   state = {
     audioList: [],
     displayModal: false,
-    selectedAudio: null,
+    selectedAudio: {},
   };
 
   handleModal = () => {
@@ -21,13 +23,14 @@ export default class App extends Component {
     const newAudio = await getAudioFileInfos(audio);
     this.setState(({ audioList }) => ({
       audioList: [...audioList, newAudio],
-    }), () => this.setSelectedAudio(newAudio.name));
+      selectedAudio: newAudio,
+    }));
   };
 
   handleSelectedRemoved = (fileName, index) => {
     const { selectedAudio, audioList } = this.state;
     if (audioList.length === 0) {
-      this.setState({ selectedAudio: null });
+      this.setState({ selectedAudio: {} });
     } else if (selectedAudio.name === fileName) {
       const newAudio = audioList[index - 1] || audioList[index];
       this.setState({ selectedAudio: newAudio });
@@ -36,16 +39,15 @@ export default class App extends Component {
 
   removeAudio = (fileName, index) => {
     this.setState(({ audioList }) => {
+      URL.revokeObjectURL(audioList[index].url);
       const audiosCopy = copyArrayOfObjects(audioList);
       const newAudios = audiosCopy.filter(({ name }) => name !== fileName);
       return { audioList: newAudios };
     }, () => this.handleSelectedRemoved(fileName, index));
   };
 
-  setSelectedAudio = (fileName) => {
-    const { audioList } = this.state;
-    const selected = audioList.find(({ name }) => name === fileName);
-    this.setState({ selectedAudio: selected });
+  setSelected = (audio) => {
+    this.setState({ selectedAudio: audio });
   };
 
   render() {
@@ -60,9 +62,15 @@ export default class App extends Component {
             audioList={audioList}
           />
         ) }
-  
+
+        <AudioController
+          selectedAudio={selectedAudio}
+          setSelected={this.setSelected}
+          audioList={audioList}
+        />
+
         <FileManager
-          setSelected={this.setSelectedAudio}
+          setSelected={this.setSelected}
           selectedAudio={selectedAudio}
           removeAudio={this.removeAudio}
           handleModal={this.handleModal}

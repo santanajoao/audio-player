@@ -1,0 +1,50 @@
+.FileManager {
+  background-color: rgba(42, 33, 65, 1);
+  height: 267px;
+  width: 460px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 7px;
+
+}
+
+.FileManager__btn-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 7px;
+}
+
+.FileManager__add-audio-btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 7px;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: none;
+}
+
+.FileManager__add-audio-icon {
+  font-size: 18px;
+  color: white;
+}
+
+.FileManager__audios-container {
+  background-color: rgba(255, 255, 255, 0.1);
+  width: 100%;
+  height: 100%;
+  border-radius: 0 0 5px 5px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+
+.FileManager__empty-list-msg {
+  color: rgb(230, 230, 230);
+  font-size: 16px;
+  font-family: sans-serif;
+  text-align: center;
+}
