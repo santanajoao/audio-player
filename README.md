@@ -8,6 +8,7 @@ Esse repositório contém minha resolução do desafio proposto pela RocketSeat 
 ## Tecnologias Utilizadas
 - ReactJS
 - CSS
+- Biblioteca React Icons
 - Biblioteca jsmediatags
 - Gerenciamento de intervalos do JavaScript
 
