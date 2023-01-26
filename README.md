@@ -18,6 +18,6 @@ Esse repositório contém minha resolução do desafio proposto pela RocketSeat 
 - Possui um gerenciador dos áudios que permite fazer upload, selecionar e remover
 - Ao acabar o áudio a próxima música é reproduzida
 
-##To do
+## To do
 - Refatorações
 - Permitir reprodução de arquivos sem metadata
