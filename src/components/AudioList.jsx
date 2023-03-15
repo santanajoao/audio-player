@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AudioCard from './AudioCard';
+import { nanoid } from 'nanoid';
 import '../styles/AudioList.css';
 
 export default class AudioList extends Component {
@@ -7,16 +8,16 @@ export default class AudioList extends Component {
     const { audioList, removeAudio, setSelected, selectedAudio } = this.props;
     return (
       <ul className="AudioList">
-        { audioList.map((audio, index) => (
+        {audioList.map((audio, index) => (
           <AudioCard
-            key={ index }
+            key={nanoid()}
             setSelected={setSelected}
             removeAudio={removeAudio}
             selectedAudio={selectedAudio}
-            id={ index }
+            id={index}
             audio={audio}
           />
-        )) }
+        ))}
       </ul>
     );
   }
