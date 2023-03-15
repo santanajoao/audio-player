@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import defaultCover from '../assets/default-song-cover.jpg';
 import { toMinutesAndSeconds, calculateWidth } from '../utils/time';
 import {
-  BsPlayFill, BsSkipBackwardFill, BsSkipForwardFill, BsPauseFill
+  BsPlayFill,
+  BsSkipBackwardFill,
+  BsSkipForwardFill,
+  BsPauseFill,
 } from 'react-icons/bs';
 import '../styles/AudioController.css';
 
@@ -17,15 +20,6 @@ export default class AudioController extends Component {
 
   componentDidUpdate(prevProps) {
     this.handleSelectedChange(prevProps);
-  }
-
-  handleSongEnd = () => {
-    const { currentIndex, duration } = this.state;
-  
-    if (currentIndex === duration) {
-      this.setState({ isPlaying: false, currentTime: 0, intervalID: null });
-      this.changeSong(1);
-    }
   }
 
   handleSelectedChange = (prevProps) => {
@@ -59,20 +53,20 @@ export default class AudioController extends Component {
 
   changeSong = (difference) => {
     const { audioList, setSelected, selectedAudio } = this.props;
-    
+
     if (audioList.length <= 1) return null;
 
     const currentIndex = audioList.findIndex(
       ({ name }) => name === selectedAudio.name
     );
     let newIndex = currentIndex + difference;
-    newIndex = (newIndex < 0) ? audioList.length - 1 : newIndex;
-    newIndex = (newIndex >= audioList.length) ? 0 : newIndex;
+    newIndex = newIndex < 0 ? audioList.length - 1 : newIndex;
+    newIndex = newIndex >= audioList.length ? 0 : newIndex;
     setSelected(audioList[newIndex]);
   };
 
   setAudioElement = () => {
-    const audio  = document.querySelector('.AudioController__audio');
+    const audio = document.querySelector('.AudioController__audio');
     this.setState({
       audioElement: audio,
       duration: audio.duration,
@@ -92,12 +86,12 @@ export default class AudioController extends Component {
     const { intervalID } = this.state;
     clearInterval(intervalID);
     this.setState({ intervalID: null });
-  }
+  };
 
   playPause = () => {
     const { audioElement, isPlaying } = this.state;
     if (!audioElement) return;
-      
+
     if (isPlaying) {
       audioElement.pause();
       this.stopInterval();
@@ -128,13 +122,13 @@ export default class AudioController extends Component {
             alt="Capa da música/álbum"
           />
           <div className="AudioController__text-metadata">
-            <h1 className="AudioController__title">{ title || 'Título' }</h1>
-            <h2 className="AudioController__artist">{ artist || 'Artista' }</h2>
+            <h1 className="AudioController__title">{title || 'Título'}</h1>
+            <h2 className="AudioController__artist">{artist || 'Artista'}</h2>
           </div>
         </div>
         <div className="AudioController__controls">
           <button
-            onClick={ () => this.changeSong(-1) }
+            onClick={() => this.changeSong(-1)}
             className="AudioController__prev-btn"
           >
             <BsSkipBackwardFill className="AudioController__prev-icon" />
@@ -143,34 +137,33 @@ export default class AudioController extends Component {
             onClick={this.playPause}
             className="AudioController__play-pause-btn"
           >
-            { isPlaying ? (
+            {isPlaying ? (
               <BsPauseFill className="AudioController__play-pause-icon" />
             ) : (
               <BsPlayFill className="AudioController__play-pause-icon" />
-            ) }
-            
+            )}
           </button>
           <button
-            onClick={ () => this.changeSong(1) }
+            onClick={() => this.changeSong(1)}
             className="AudioController__next-btn"
           >
-            <BsSkipForwardFill className="AudioController__next-icon" /> 
+            <BsSkipForwardFill className="AudioController__next-icon" />
           </button>
         </div>
         <div className="AudioController__time-infos">
           <div className="AudioController__bar-container">
             <div className="AudioController__total-bar" />
             <div
-              style={ calculateWidth(duration, currentTime) } 
+              style={calculateWidth(duration, currentTime)}
               className="AudioController__progress-bar"
             />
           </div>
           <div className="AudioController__times">
             <span className="AudioController__currentTime">
-              { toMinutesAndSeconds(currentTime) }
+              {toMinutesAndSeconds(currentTime)}
             </span>
             <span className="AudioController__duration">
-              { toMinutesAndSeconds(duration) }
+              {toMinutesAndSeconds(duration)}
             </span>
           </div>
         </div>
