@@ -6,7 +6,6 @@
   background-color: rgb(255, 255, 255, 0.7);
   padding: 6px;
   gap: 20px;
-  align-items: center;
 }
 
 .AudioCard__select-audio-btn {
@@ -30,7 +29,6 @@
 .AudioCard__delete-btn {
   font-size: 18px;
   color: rgb(255, 10, 30);
-  background-color: transparent;
   border: none;
   display: flex;
   align-items: center;
